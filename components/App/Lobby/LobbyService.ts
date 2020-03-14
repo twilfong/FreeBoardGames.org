@@ -49,6 +49,17 @@ export class LobbyService {
     this.setCredential(player, credential);
   }
 
+  public static async spectateRoom(gameCode: string, player: IPlayerInRoom): Promise<void> {
+    const response = await request
+      .post(`${AddressHelper.getServerAddress()}/games/${gameCode}/${player.roomID}`)
+      .send({
+        // playerID: player.playerID,
+        playerName: player.name,
+      });
+    const credential = response.body.playerCredentials;
+    this.setCredential(player, credential);
+  }
+
   public static async renameUser(gameCode: string, player: IPlayerInRoom, newName: string): Promise<void> {
     const playerCredential: IPlayerCredential = this.getCredential(player.roomID);
     await request.post(`${AddressHelper.getServerAddress()}/games/${gameCode}/${player.roomID}/rename`).send({
@@ -86,7 +97,7 @@ export class LobbyService {
 
   public static getNickname(): string {
     if (!SSRHelper.isSSR()) {
-      return localStorage.getItem(FBG_NICKNAME_KEY);
+      return localStorage.getItem(FBG_NICKNAME_KEY) || 'Spectator';
     }
   }
 
