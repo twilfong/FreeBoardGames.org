@@ -110,12 +110,11 @@ export class Board extends React.Component<IBoardProps, {}> {
           />,
         );
         cells.push(<EmptyDisk x={i} y={j} key={`empty_chip_${id}`} onClick={this.onClick(id)} />);
-
         let overlay;
         if (this.props.G.grid[i][j] === '0') {
-          overlay = <CircleBlue x={i} y={j} key={`chip_${id}`} />;
+          overlay = <CircleBlue x={i} y={j} key={`chip_${id}`} lastSelected={id === this.props.G.grid.lastSelected} />;
         } else if (this.props.G.grid[i][j] === '1') {
-          overlay = <CircleRed x={i} y={j} key={`chip_${id}`} />;
+          overlay = <CircleRed x={i} y={j} key={`chip_${id}`} lastSelected={id === this.props.G.grid.lastSelected} />;
         }
         if (overlay) {
           cells.push(overlay);

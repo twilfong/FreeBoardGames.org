@@ -1,0 +1,16 @@
+.Chip {
+    transition: transform 0.5s;
+    transition-timing-function: 'linear';
+    animation: fadein 0.5s;
+}
+
+
+@keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
