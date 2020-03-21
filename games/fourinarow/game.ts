@@ -113,7 +113,7 @@ export const ConnectFourGame = Game({
       for (var rowID = numOfRows - 1; rowID >= 0; rowID--) {
         if (G.grid[colId][rowID] === null) {
           G.grid[colId][rowID] = ctx.currentPlayer;
-          G.grid.lastSelected = colId*10 + rowID;
+          G.grid.lastSelected = colId * 10 + rowID;
           return;
         }
       }

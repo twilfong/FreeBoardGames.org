@@ -34,21 +34,24 @@ export const CircleRed = (props: IShapeProps) => {
       // className={`${css.Chip} Chip`}
       // style={{ transform: `translate(${(props.x+0.5)}, ${(0.5)})` }}
       cx={props.x + 0.5}
-      cy={props.y+ 0.5}
+      cy={props.y + 0.5}
       r={diskRadius}
       fill={red[500]}
       strokeWidth={strokeWidth}
       stroke={grey[50]}
     >
-      {
-        props.lastSelected ? 
-          (<animate 
-            id={`red_chip_anim_id${props.x}-${props.y}`}
-            attributeType="XML" 
-            attributeName="cy" from="-1" to={props.y+ 0.5}
-            dur="1s" begin="1s" repeatCount="2"
-          />): null         
-      }
+      {props.lastSelected ? (
+        <animate
+          id={`red_chip_anim_id${props.x}-${props.y}`}
+          attributeType="XML"
+          attributeName="cy"
+          from="-1"
+          to={props.y + 0.5}
+          dur="1s"
+          begin="1s"
+          repeatCount="2"
+        />
+      ) : null}
     </circle>
     // </g>
     // <animate
@@ -61,7 +64,7 @@ export const CircleRed = (props: IShapeProps) => {
     // from={`${0.5}`}
     // to={`${props.y + 0.5}`}
     // fill="freeze"
-    // /> 
+    // />
     // </g>
   );
 };
