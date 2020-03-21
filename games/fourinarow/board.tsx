@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IGameArgs } from 'components/App/Game/GameBoardWrapper';
 import { GameLayout } from 'components/App/Game/GameLayout';
-import { EmptyDisk, CircleBlue, CircleRed } from './Shapes';
+import { EmptyChip, FilledChip } from './Shapes';
 import Typography from '@material-ui/core/Typography';
 import { isOnlineGame, isAIGame } from '../common/gameMode';
 import { numOfColumns, numOfRows, localPlayerNames } from './constants';
@@ -109,12 +109,14 @@ export class Board extends React.Component<IBoardProps, {}> {
             strokeWidth="0.05"
           />,
         );
-        cells.push(<EmptyDisk x={i} y={j} key={`empty_chip_${id}`} onClick={this.onClick(id)} />);
+        cells.push(<EmptyChip x={i} y={j} key={`empty_chip_${id}`} onClick={this.onClick(id)} />);
         let overlay;
-        if (this.props.G.grid[i][j] === '0') {
-          overlay = <CircleBlue x={i} y={j} key={`chip_${id}`} lastSelected={id === this.props.G.grid.lastSelected} />;
-        } else if (this.props.G.grid[i][j] === '1') {
-          overlay = <CircleRed x={i} y={j} key={`chip_${id}`} lastSelected={id === this.props.G.grid.lastSelected} />;
+        if (this.props.G.grid[i][j] === '0' || this.props.G.grid[i][j] === '1') {
+          overlay = <FilledChip 
+                    x={i} y={j} key={`chip_${id}`} 
+                    lastSelected={id === this.props.G.grid.lastSelected} 
+                    playerId={this.props.G.grid[i][j]}
+                  />;
         }
         if (overlay) {
           cells.push(overlay);
@@ -129,9 +131,11 @@ export class Board extends React.Component<IBoardProps, {}> {
         <Typography variant="h5" style={{ textAlign: 'center', color: 'white', marginBottom: '16px' }}>
           {this._getStatus()}
         </Typography>
-        <svg width="100%" height="100%" viewBox="0 0 7 6">
-          {this._getCells()}
-        </svg>
+        <div>
+          <svg width="100%" height="100%" viewBox="0 0 7 6">
+            {this._getCells()}
+          </svg>
+        </div>
       </div>
     );
   }

@@ -6,12 +6,13 @@ interface IShapeProps {
   x: number;
   y: number;
   lastSelected: boolean;
+  playerId?: string;
 }
 
 const diskRadius = 0.375;
 const strokeWidth = 0.05;
 
-export const EmptyDisk = (props: any) => {
+export const EmptyChip = (props: any) => {
   return (
     <circle
       key={`empty_circle${props.x},${props.y}`}
@@ -25,35 +26,37 @@ export const EmptyDisk = (props: any) => {
   );
 };
 
-export const CircleRed = (props: IShapeProps) => {
+export const FilledChip = (props: IShapeProps) => {
   // let className;
   // if (props.lastSelected) {
   //   className = css.Chip;
-  // }
+  // } 
+  console.log(props.x, props.y, props.lastSelected);
+  const chipColor = props.playerId === '0' ? blue[500] : red[500];
   return (
     // <g>
     <circle
       // id={`red_chip_id${props.x}-${props.y}`}
       key={`red_circle${props.x}-${props.y}`}
-      className={css.Chip}
+      // className={css.Chip}
       // style={{ transform: `translate(${(props.x+0.5)}, ${(0.5)})` }}
       cx={props.x + 0.5}
       cy={props.y + 0.5}
       r={diskRadius}
-      fill={red[500]}
+      fill={chipColor}
       strokeWidth={strokeWidth}
       stroke={grey[50]}
     >
       {props.lastSelected ? (
         <animate
-          id={`red_chip_anim_id${props.x}-${props.y}`}
+          key={`red_chip_anim_id${props.x}-${props.y}`}
           attributeType="XML"
           attributeName="cy"
           from="-1"
           to={props.y + 0.5}
-          dur="1s"
-          begin="1s"
-          repeatCount="2"
+          dur="2s"
+          begin="0s"
+          repeatCount="1"
         />
       ) : null}
     </circle>
@@ -73,35 +76,3 @@ export const CircleRed = (props: IShapeProps) => {
   );
 };
 
-export const CircleBlue = (props: IShapeProps) => {
-  // let className;
-  // if (props.lastSelected) {
-  //   className = css.Chip;
-  // }
-  return (
-    <circle
-      key={`blue_circle${props.x},${props.y}`}
-      className={css.Chip}
-      style={{ transform: `translate(${0}, ${+5})` }}
-      cx={props.x + 0.5}
-      cy={props.y + 0.5}
-      r={diskRadius}
-      fill={blue[500]}
-      strokeWidth={strokeWidth}
-      stroke={grey[50]}
-    >
-      {props.lastSelected ? (
-        <animate
-          id={`red_chip_anim_id${props.x}-${props.y}`}
-          attributeType="XML"
-          attributeName="cy"
-          from="-1"
-          to={props.y + 0.5}
-          dur="1s"
-          begin="1s"
-          repeatCount="2"
-        />
-      ) : null}
-    </circle>
-  );
-};
