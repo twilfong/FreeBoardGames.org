@@ -26,12 +26,16 @@ export const EmptyDisk = (props: any) => {
 };
 
 export const CircleRed = (props: IShapeProps) => {
+  // let className;
+  // if (props.lastSelected) {
+  //   className = css.Chip;
+  // }
   return (
     // <g>
     <circle
       // id={`red_chip_id${props.x}-${props.y}`}
       key={`red_circle${props.x}-${props.y}`}
-      // className={`${css.Chip} Chip`}
+      className={css.Chip}
       // style={{ transform: `translate(${(props.x+0.5)}, ${(0.5)})` }}
       cx={props.x + 0.5}
       cy={props.y + 0.5}
@@ -70,10 +74,14 @@ export const CircleRed = (props: IShapeProps) => {
 };
 
 export const CircleBlue = (props: IShapeProps) => {
+  // let className;
+  // if (props.lastSelected) {
+  //   className = css.Chip;
+  // }
   return (
     <circle
       key={`blue_circle${props.x},${props.y}`}
-      className={`${css.Chip} Chip`}
+      className={css.Chip}
       style={{ transform: `translate(${0}, ${+5})` }}
       cx={props.x + 0.5}
       cy={props.y + 0.5}
@@ -81,6 +89,19 @@ export const CircleBlue = (props: IShapeProps) => {
       fill={blue[500]}
       strokeWidth={strokeWidth}
       stroke={grey[50]}
-    />
+    >
+      {props.lastSelected ? (
+        <animate
+          id={`red_chip_anim_id${props.x}-${props.y}`}
+          attributeType="XML"
+          attributeName="cy"
+          from="-1"
+          to={props.y + 0.5}
+          dur="1s"
+          begin="1s"
+          repeatCount="2"
+        />
+      ) : null}
+    </circle>
   );
 };

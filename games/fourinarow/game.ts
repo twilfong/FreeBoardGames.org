@@ -117,7 +117,6 @@ export const ConnectFourGame = Game({
           return;
         }
       }
-      // return { ...G, grid };
     },
   },
 
