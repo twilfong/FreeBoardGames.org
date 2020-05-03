@@ -5,9 +5,15 @@ export interface Room {
   capacity: number;
   gameCode: string;
   unlisted: boolean;
-  users?: User[];
+  userInRooms: UserInRoom[];
   currentUserId?: number;
 }
+
+export interface UserInRoom {
+  id?: number;
+  user: User;
+  room: Room;
+};
 
 export interface NewRoomResponse {
   status: NewRoomResponseStatus;

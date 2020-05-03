@@ -14,15 +14,12 @@ import { RoomDb } from './RoomDb';
 @Entity()
 export class UserInRoomDb extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public userInRoomId!: number;
-
-  @Column()
-  public foo!: string;
+  public id!: number;
 
   @ManyToOne((type) => UserDb, (userDb) => userDb.userInRooms)
   public user!: UserDb;
 
-  @ManyToOne((type) => RoomDb, (roomDb) => roomDb.usersInRoom)
+  @ManyToOne((type) => RoomDb, (roomDb) => roomDb.userInRooms)
   public room!: RoomDb;
 }
 

@@ -20,42 +20,37 @@ export class RoomService {
     return response;
   }
 
-  public static async listRooms() {
-    const roomsFromDb = await RoomDb.find({
+  public static async listRooms(): Promise<RoomDb[]> {
+    return await RoomDb.find({
       where: { unlisted: false },
       relations: ['users'],
     });
-    const rooms = roomsFromDb.map((room) => {
-      const { capacity, gameCode } = room;
-      const usersInRoom = room.usersInRoom || []; // FIXME this is probably not right
-      return { capacity, gameCode, users };
-    });
-    return rooms;
   }
 
-  public static async getRoom(id: number) {
-    // room is retrieved with users who joined most recently being first in the users array
-    const room = await RoomDb.findOne({
+  public static async getRoom(id: number): Promise<RoomDb | undefined> {
+    return await RoomDb.findOne({
       where: { id },
       relations: ['users'],
     });
-    return room;
   }
 
-  public static async isUserInRoom(room: RoomDb, user: UserDb) {
-    const usersInRoom = room.users.map((user) => user.id);
+  public static async isUserInRoom(room: RoomDb, user: UserDb): Promise<boolean> {
+    const roomUsersIds = room.userInRooms.map((uir) => uir.user.id);
     const userID = user.id;
-    return usersInRoom.includes(userID);
+    return roomUsersIds.includes(userID);
   }
 
   public static async joinRoom(room: RoomDb, user: UserDb) {
-    room.users.push(user);
+    const userInRoom = new UserInRoomDb();
+    userInRoom.user = user;
+    userInRoom.room = room;
+    room.userInRooms.push(userInRoom);
     await room.save();
   }
 
   public static async leaveRoom(room: RoomDb, user: UserDb) {
-    const roomUsers = room.users.filter((userInRoom) => userInRoom.id !== user.id);
-    room.users = roomUsers;
+    const roomUsers = room.userInRooms.filter((userInRoom) => userInRoom.user.id !== user.id);
+    room.userInRooms = roomUsers;
     await room.save();
   }
 }

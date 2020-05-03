@@ -17,5 +17,5 @@ export class RoomDb extends BaseEntity {
   unlisted!: boolean;
 
   @OneToMany((type) => UserInRoomDb, (userinRoomDb) => userinRoomDb.room)
-  public usersInRoom!: UserInRoomDb[];
+  public userInRooms!: UserInRoomDb[];
 }

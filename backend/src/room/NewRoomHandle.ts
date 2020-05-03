@@ -17,7 +17,7 @@ export class NewRoomHandle extends Handle {
         res.status(401).send();
         return;
       }
-      const roomDto: Room = { gameCode, capacity, unlisted };
+      const roomDto: Room = { gameCode, capacity, unlisted, userInRooms: [] };
       const room = await RoomService.newRoom(userDbEntity, roomDto);
       res.send(room);
     });

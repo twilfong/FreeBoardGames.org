@@ -22,7 +22,7 @@ export class GetRoomHandle extends Handle {
         return;
       }
       // join the room if it is not full, and the user is not already in it
-      if (roomDbEntity.users.length < roomDbEntity.capacity) {
+      if (roomDbEntity.userInRooms.length < roomDbEntity.capacity) {
         const userInRoom = await RoomService.isUserInRoom(roomDbEntity, userDbEntity);
         if (!userInRoom) {
           await RoomService.joinRoom(roomDbEntity, userDbEntity);
