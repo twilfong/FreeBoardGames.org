@@ -12,6 +12,7 @@ import { fourinarowGameDef } from './fourinarow';
 import { rotaGameDef } from './rota';
 import { secretcodesGameDef } from './secretcodes';
 import { hangmanGameDef } from './hangman';
+import { backgammonGameDef } from './backgammon';
 
 // Add new games here
 export const GAMES_MAP: IGameDefMap = {
@@ -28,6 +29,7 @@ export const GAMES_MAP: IGameDefMap = {
   rota: rotaGameDef,
   secretcodes: secretcodesGameDef,
   hangman: hangmanGameDef,
+  backgammon: backgammonGameDef,
 };
 
 // Order roughly by popularity.
@@ -46,6 +48,7 @@ export const GAMES_LIST: IGameDef[] = [
   GAMES_MAP.reversi,
   GAMES_MAP.ninemensmorris,
   GAMES_MAP.hangman,
+  GAMES_MAP.backgammon,
 ];
 
 // No need to edit below
